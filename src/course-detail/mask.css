@@ -1,0 +1,11 @@
+.mask { position: fixed; background: none repeat scroll 0% 0% rgba(0, 0, 0, 0.5); top: 0px; left: 0px; bottom: 0px; right: 0px; z-index: 1000; }
+.mask-box { position: fixed; top: 25%; left: 50%;margin-left: -226px; width: 452px;padding-bottom:30px; padding-top: 30px; background: none repeat scroll 0% 0% #FFF; z-index: 1002; text-align: center; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); }
+.mask-boxs { position: fixed; top: 25%; left: 50%; width: 452px; margin-left: -226px;height: 241px; padding-top: 30px; background: none repeat scroll 0% 0% #FFF; z-index: 1002; box-shadow: 0px 0px 15px rgba(0, 0, 0, 0.2); }
+.box-news { text-align: center; margin-top: 50px; color: #737373; font-size: 16px; font-weight: bold; }
+.box-confirm { margin-top: 50px; }
+.box-confirm span { background-color: #e4e4e4; padding: 5px 26px; margin-left: 10px; color: #666666; font-size: 15px; font-weight: bold; cursor: pointer; }
+.mask-sure { color: #2d2d2d; }
+#input_password { position: fixed; top: 0px; left: 0px; width: 100%; height: 100%; z-index: 999; display: block; background: rgba(0, 0, 0, 0.498039); }
+#code_password { width: 267px; font-size: 18px; height: 40px; text-indent: 15px; border: none; background: #eeeeee; margin-left: 15px; }
+.password_error { font-size: 14px; color: red; display: block; height: 14px; line-height: 14px; padding-top: 8px; text-align: left; padding-left: 141px; }
+.mask-button { width: 89px; height: 31px; background-color: #E4E4E4; color: #666; text-align: center; line-height: 22px; font-size: 15px; margin-top: 8px; border: none; }

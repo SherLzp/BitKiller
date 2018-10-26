@@ -1,0 +1,357 @@
+function Aside(eleId)
+{
+    window.win=$('#wrapper');
+    window.kvideoid=win.data('kvideoid');
+    window.classesid=win.data('classesid');
+    window.courseid=win.data('courseid'); //播放下一集时会变换
+
+    var $asideCon = $(document.getElementById(eleId));
+    var $aside=$('<div class="aside">\r\n	<div class="left-silder"></div>\r\n	<div class="silder">\r\n		<div class="silder-right">\r\n			<span class=\'unfold-btn-side\'><i class=\'icon icon-arrow\'></i>展开列表</span>\r\n		</div>\r\n		<div class="silder-bottom">\r\n			<div class="fold-btn">\r\n				<span>收起列表 </span><i class="icon icon-fold"></i>\r\n			</div>\r\n			<div class="unfold-btn">\r\n				<span>展开列表 </span><i class="icon icon-unfold"></i>\r\n			</div>\r\n		</div>\r\n	</div>\r\n	<div class="aside-content">\r\n		<div class="aside-tabs">\r\n			<ul>\r\n				<li data-tab=\'tab1\' class="active">笔记</li>\r\n				<li data-tab=\'tab2\'>字幕</li>\r\n				<li data-tab=\'tab3\'>讨论</li>\r\n				<li data-tab=\'tab4\'>列表</li>\r\n			</ul>\r\n		</div>\r\n		<div class="tabs-container">\r\n			<div class="tab1">\r\n				<ul class="halftab">\r\n					<li data-type="mynote" class="active">我的笔记</li>\r\n					<li data-type="allnote">大家的笔记</li>\r\n				</ul>\r\n				<div class="item-container">\r\n					\r\n					<!-- note-item -->\r\n		\r\n				</div>\r\n			</div>\r\n			<div class="tab2">\r\n				<div class=\'inner-container\'>\r\n					<!-- 字幕 -->\r\n				</div>\r\n			</div>\r\n			<div class="tab3">\r\n				\r\n					<ul class="halftab">\r\n						<li>与我相关</li>\r\n						<li class="active">大家的提问</li>\r\n					</ul>\r\n					<div class="item-container">\r\n						\r\n						<div class="discuz-item">\r\n							<div class="item-list">\r\n								<div class="item-user">\r\n									<img src="" class="user-head" alt="">\r\n									<p class="u-name">吴玉波</p>\r\n								</div>\r\n								<div class="item-content">\r\n									提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									<a class="reply">回复</a>\r\n								</div>\r\n							</div>\r\n						</div>\r\n						\r\n						<div class="discuz-item">\r\n							<div class="item-list">\r\n								<div class="item-user">\r\n									<img src="" class="user-head" alt="">\r\n									<p class="u-name">吴玉波</p>\r\n								</div>\r\n								<div class="item-content">\r\n									提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									<a class="reply">回复</a>\r\n								</div>\r\n							</div>\r\n							<ul class="ul-reply-list">\r\n								<li>\r\n									<div class="item-user">\r\n										<img src="" class="user-head" alt="">\r\n										<p class="u-name">吴玉波</p>\r\n									</div>\r\n									<div class="item-content">\r\n										提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									</div>\r\n								</li>\r\n								<li>\r\n									<div class="item-user">\r\n										<img src="" class="user-head" alt="">\r\n										<p class="u-name">吴玉波</p>\r\n									</div>\r\n									<div class="item-content">\r\n										提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									</div>\r\n								</li>\r\n								<li>\r\n									<div class="item-user">\r\n										<img src="" class="user-head" alt="">\r\n										<p class="u-name">吴玉波</p>\r\n									</div>\r\n									<div class="item-content">\r\n										提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									</div>\r\n								</li>\r\n							</ul>\r\n						</div>\r\n						\r\n						<div class="discuz-item">\r\n							<div class="item-list">\r\n								<div class="item-user">\r\n									<img src="" class="user-head" alt="">\r\n									<p class="u-name">吴玉波</p>\r\n								</div>\r\n								<div class="item-content">\r\n									提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									<a class="reply">回复</a>\r\n								</div>\r\n							</div>\r\n						</div>\r\n\r\n						<div class="discuz-item">\r\n							<div class="item-list">\r\n								<div class="item-user">\r\n									<img src="" class="user-head" alt="">\r\n									<p class="u-name">吴玉波</p>\r\n								</div>\r\n								<div class="item-content">\r\n									提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									<a class="reply">回复</a>\r\n								</div>\r\n							</div>\r\n						</div>\r\n					\r\n						<div class="discuz-item">\r\n							<div class="item-list">\r\n								<div class="item-user">\r\n									<img src="" class="user-head" alt="">\r\n									<p class="u-name">吴玉波</p>\r\n								</div>\r\n								<div class="item-content">\r\n									提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容提问内容?\r\n									<a class="reply">回复</a>\r\n								</div>\r\n							</div>\r\n						</div>\r\n	\r\n\r\n					</div>\r\n					<div class="reply-box">\r\n						<textarea class="reply-text"></textarea>\r\n						<p class="reply-bottom">\r\n							<button class="reply-btn">发送</button>\r\n						</p>\r\n					</div>\r\n			</div>\r\n			<div class="tab4">\r\n				<ul>\r\n					<!-- 小节课列表 -->\r\n				</ul>\r\n			</div>\r\n		</div>\r\n	</div>\r\n\r\n</div>');
+    var $tabs=$aside.find('.aside-tabs');//切换页
+    var $silder=$aside.find('.silder');//侧边栏
+    var $asideContent=$aside.find('.aside-content');//主要容器
+    var $tabCon=$aside.find('.tabs-container');//讨论字幕等父容器
+    var $reply=$aside.find('.reply-box');//回复框
+    var $replyText=$reply.find('.reply-text');//讨论回复的输入框
+
+
+    $asideCon.append($aside);
+
+    $aside.on('click','.aside-tabs li',function(){
+    	//笔记字幕讨论列表，切换
+    	var tab=$(this).data('tab');
+    	$(this).addClass('active').siblings().removeClass('active');
+    	$tabCon.find('.'+tab).show().siblings().hide();
+    	
+    }).on('click','.fold-btn,.unfold-btn,.unfold-btn-side,.left-silder',function(){
+    	//收起列表,展开列表
+         //侧边栏收起按钮
+        var frame=$('.f-icon-frame').data('frame');
+        if(frame)
+        {
+            return false; //剧场模式不允许展开/收缩
+        }
+        if($(this).hasClass('fold-btn')||$(this).hasClass('left-silder'))
+        {
+            // 收起
+            $asideContent.animate({'left':'425px'},function(){});
+        	$('.fplayer').animate({'left':'212px'});
+            $('.fold-btn').hide();
+            $('.unfold-btn').show();
+            window.isfold=true; //标记模式
+            $(".tiger_fixed_bottom_1").animate({width:1280});
+        }
+        else
+        {
+           //展开
+            $asideContent.animate({'left':'0'},function(){});
+            $('.fplayer').animate({'left':'0'});
+            $('.unfold-btn').hide();
+            $('.fold-btn').show();
+            window.isfold=false;
+            $(".tiger_fixed_bottom_1").animate({width:855});
+        }
+
+    }).on('click','.halftab li',function(){
+    	//切换我的笔记，大家的笔记
+    	$(this).addClass('active').siblings().removeClass('active');
+        var type=$(this).data('type');
+        $("#main-ctrl .button-black").attr("data-type",type);
+        getNote(type);
+    }).on('click','.dolove',function(){
+		var type=$(".tab1 .active").data('type');
+		if('mynote'==type)
+		{
+			alert("不能自己给自己点赞");
+			return;
+		}
+    	//点赞动作
+        var id=$(this).data('id');
+    	window.addFav(id);
+    }).on('click','.reply',function(){
+        //讨论，弹出回复框
+        $reply.toggle();
+    }).on('click','.reply-btn',function(){
+        //讨论，回复按钮提交
+        $reply.toggle();
+        var data={
+            text:$replyText.val()
+        };
+        $replyText.val('');
+        $.post('/',data,function(data){
+            // console.log(data);
+        });
+
+    }).on('click','.tab4 ul li',function(){
+        //右侧选集
+        var cls=$(this).attr('class');
+        var courseid=parseInt(cls.replace('l','').replace(' cur',''));
+        location.href="/live/"+courseid;
+        //aside.loadCourse(courseid);
+    });
+    //初始化字幕
+    this.videoTitleInit=function(data){
+        window.videoTitleData=data;
+        var html='';
+        for (var i in data) {
+            var item=data[i];
+			if('无字幕'!=item.text)
+            	var li='<p onclick=subplay("'+item.endTime+'") >'+item.text+'</p>';
+			else
+				var li='<p>'+item.text+'</p>';
+            html=html+li;
+        };
+        $('.tab2 .inner-container').html(html);
+    }
+    //更新字幕状态
+    this.updateVideoTitle=function(index){
+        $('.tab2 .inner-container p').eq(index).addClass('cur').siblings().removeClass('cur');
+    }
+    //获取小节课列表
+    this.getCourseList=function(){
+        var url="/api/player_course_list.php";
+        var data={
+            kvideoid:kvideoid,
+            classesid:classesid
+        };
+        $.get(url,data,function(data){
+          //  console.log(data);
+            window.courseData=[];
+            if(data.flag==1)
+            {
+                var html='';
+                var data=data.msg;
+                for(var i in data)
+                {
+                    var item=data[i];
+                    window.courseData[item.course_id]=item;
+                    if(item.course_id==courseid)
+                    {
+                        item.course_id=courseid+' cur';
+                    }
+                    var tmp=
+                    [
+                        '<li class="l'+item.course_id+'">',
+                            '<div class="title">'+item.order_num_str+"&nbsp;&nbsp;&nbsp;"+item.course_name+'</div>',
+                            '<div class="time" style="display: none;">'+item.course_format_tm+'</div>',
+                        '</li>'
+                    ];
+                    html=html+tmp.join('');
+                }
+                $('.tab4 ul').html(html);
+            }
+        },'json');
+    }
+    //加载新的小节课
+    this.loadCourse=function(id,fun){
+		/***是否允许播放下一个小节**/
+		var stop_continue=0;
+		 $.ajax({
+                url : '/course.php?ac=course_view&op=can_play_next_course',
+                data:{id:id},
+                cache : false,
+                async : false,
+                type : "GET",
+                dataType : 'json',
+                success : function (result){
+                    if('success'!=result['flag'] && 1!=result['can_play'])
+					{
+						stop_continue=1;
+					}
+                }
+            });
+		if(stop_continue) {alert("上一节课程未学习完毕!");return;}
+		last_time=0;//上次播放时间置零，或调取远程数据
+		practice_at_video_end=0;//当前练习是否是视频尾部
+        var data=window.courseData;
+		app.exercise.exerciseShow(0);//关闭练习
+		$("#wrapper").attr("data-courseid",id);
+		
+        if(data[id])
+        {
+            //播放器播放
+           // console.log(data[id]);
+        	window.courseid=id;//更新当前所在的ID
+            //TODO
+            //弹幕重新计算,笔记重新加载,讨论重新加载
+			load_practice_time(id,'nopflag');//加载习题时间
+			var url=data[id]['mp4_url'];
+            fplayer.player.playVideo({'data':url,'time':0});
+            //字幕重新加载
+            fplayer.getVideoTitle(id);
+            ///右侧列表重新定位
+            $('.l'+id).addClass('cur').siblings().removeClass('cur');
+            //左侧圆圈重新定位
+            $(".round li[data-cid='"+id+"']").addClass('active').siblings().removeClass('active');
+            if(fun)
+            {
+                fun();
+            }
+			$("li[data-type='mynote']").trigger('click');
+
+        }
+    }
+
+    Date.prototype.Format = function (fmt) { //author: meizz 
+        var o = {
+            "M+": this.getMonth() + 1, //月份 
+            "d+": this.getDate(), //日 
+            "h+": this.getHours(), //小时 
+            "m+": this.getMinutes(), //分 
+            "s+": this.getSeconds(), //秒 
+            "q+": Math.floor((this.getMonth() + 3) / 3), //季度 
+            "S": this.getMilliseconds() //毫秒 
+        };
+        if (/(y+)/.test(fmt)) fmt = fmt.replace(RegExp.$1, (this.getFullYear() + "").substr(4 - RegExp.$1.length));
+        for (var k in o)
+        if (new RegExp("(" + k + ")").test(fmt)) fmt = fmt.replace(RegExp.$1, (RegExp.$1.length == 1) ? (o[k]) : (("00" + o[k]).substr(("" + o[k]).length)));
+        return fmt;
+    }
+
+    //加载笔记，我的笔记 , mynote allnote
+    this.getNote=function(type){
+        var url="/kvideo.php?do=coursenote_ajax&action=video_note&kvideoid="+kvideoid;
+        var data={
+            getnotetype:type,
+			courseid: window.courseid
+        };
+        $.get(url,data,function(data){
+            var html=makeNoteHtml(data);
+            $('.tab1 .item-container').html(html);
+
+            if(type === 'allnote' ){
+                $('.tab1 .item-container').find('.edit_pen').remove();
+            }
+            // 添加编辑按钮的事件
+            $(document).on("click",".edit_pen", function(e){
+
+                // hide current
+                var edit_div = $(e.target).parents('.note-item');
+
+                var note_id = edit_div.find('.dolove').data('id');
+                
+                var new_div = '<div class="note_edit_con" style="background: #fff;">'
+                  +'<textarea style="width:100%; height:112px;border: none;padding: 10px; ">'+edit_div.find(".item-content").text()+'</textarea>'
+                  +'<div style="height:30px; padding:10px 20px;border-top:1px solid #ccc;">'
+                    +'<button style="background-color:#333333; color:white;float:right; border: none;padding: 0px 14px;" class="edit_note_confirm">确定</button>'
+                    +'<button class="edit_note_cancel" style="background-color:#333333; color:white;float:right;margin-right:20px; border: none;padding: 0px 14px;">取消</button>'
+                  +'</div>'
+                +'</div>';            
+                
+                // new div before this
+                if($(".note_edit_con").length>0){
+                    return;
+                }
+                $(e.target).parents('.note-item').before(new_div);
+                edit_div.hide();
+                // 确定编辑
+                $('.edit_note_confirm').unbind().bind('click', function(e){
+                    var new_content = $('.note_edit_con textarea').val();
+                    $.post('kvideo.php?do=coursenote_ajax&action=mod_note', {
+                        noteid: parseInt(note_id),
+                        message: new_content
+                    }, function(data){
+
+                        data = JSON.parse(data);
+
+                        if(data.flag == '20001'){
+                            $('.note_edit_con').remove();
+                            edit_div.show();
+                            edit_div.find(".item-content p").text(new_content);
+
+                            // 更新编辑时间
+                            edit_div.find('.item-top span').text(new Date().Format("hh:mm"));
+                            
+                        }else{
+                            alert(data.msg);
+                            $('.note_edit_con').remove();
+                            edit_div.show();
+                        }
+
+                    });
+                })
+
+                // 取消编辑
+                $('.edit_note_cancel').unbind().bind('click', function(e){
+                    $('.note_edit_con').remove();
+                    edit_div.show();
+                })
+            })
+
+			if('mynote'==type)
+			{
+				$('.dolove').css("visibility", "hidden");
+			}
+        },'json');
+    }
+    window.getNote=this.getNote;
+    getNote('mynote');
+    //点赞/取消点赞
+    this.addFav=function(id){
+        var url="/kvideo.php?do=coursenote_ajax&action=video_note&getnotetype=zan&kvblogid="+id;
+        $.get(url,function(data){
+            if(data.msg=='dig_succ')
+            {
+               $("i","div[data-id='"+id+"']").removeClass("icon-heart").addClass("icon-heart-hover");
+            }
+            if(data.msg=='dig_qx')
+            {
+                $("i","div[data-id='"+id+"']").addClass("icon-heart").removeClass("icon-heart-hover");
+            }
+            else if(data.flag=='error')
+            {
+                alert(data.reason);
+            }
+        },'json');
+    }
+    window.addFav=this.addFav;
+    function makeNoteHtml(data)
+    {
+        var html = '';
+        for(var i in data)
+        {
+            var item=data[i];           
+
+  			if(item.dig)
+			tmp=[
+                '<div class="note-item">',
+                    '<div class="item-top">',
+                        '<i class="icon icon-time"></i>',
+                        '<span>'+item.dateline+'</span>',
+                        '<img class="edit_pen" src="'+baseurl+'edit_pen.png" style="float:right; width:24px">',
+                    '</div>',
+                    '<div class="item-content">',
+                        '<p>'+item.message+'</p>',
+                    '</div>',
+                    '<div class="item-bottom">',
+                        '<div class="dolove" data-id="'+item.kvblogid+'">',
+                        '<i class="icon icon-heart-hover"></i>',
+                        '<span> 赞</span>',
+                        '</div>',
+                    '</div>',
+                '</div>'
+            ];
+			else
+            tmp=[
+                '<div class="note-item">',
+                    '<div class="item-top">',
+                        '<i class="icon icon-time"></i>',
+                        '<span>'+item.dateline+'</span>',
+                        '<img class="edit_pen" src="'+baseurl+'edit_pen.png" style="float:right; width:24px">',
+                    '</div>',
+                    '<div class="item-content">',
+                        '<p>'+item.message+'</p>',
+                    '</div>',
+                    '<div class="item-bottom">',
+                        '<div class="dolove" data-id="'+item.kvblogid+'">',
+                        '<i class="icon icon-heart"></i>',
+                        '<span> 赞</span>',
+                        '</div>',
+                    '</div>',
+                '</div>'
+            ];
+            html=html+tmp.join('');
+        }
+        return html;
+    }    
+}

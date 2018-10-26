@@ -1,0 +1,268 @@
+// JavaScript Document
+
+var cur_time=0;
+var get_video_time_event;
+var has_video_end_practice=false;
+var practice_at_video_end=0;
+
+function add_pflag(videolength)
+{
+	
+	$("#loading_gif").hide();
+	
+
+	if(video_practice_timing['added']!='added')
+		has_video_end_practice=false;//切换小结视频 初始化
+
+	var times=new Array();
+
+	for(var i in video_practice_timing)//获取时间点
+	{
+		if(parseInt(videolength)<=video_practice_timing[i] && video_practice_timing['added']!='added')//如果有结尾视频 则加1,否则播放中自动取练习
+		{
+			has_video_end_practice=video_practice_timing[i];
+		
+			video_practice_timing[i]=parseInt(video_practice_timing[i])+1;
+			video_practice_timing['added']='added';
+			
+		}
+		
+		if((!in_array(video_practice_timing[i],times)) && (!isNaN(video_practice_timing[i])))
+		{
+			times.push(video_practice_timing[i]);
+		}
+	}
+	//清空图标
+	$(".f-progress-bar").find(".pflag").remove();
+	//添加图标
+	for(var i=0;i<times.length;i++)
+	{
+		if(times[i]==0 && last_time==0 && 'progress'!=from)
+		{
+			 fplayer.player.pauseVideo();
+			 $(".f-icon-pause").trigger('click');
+			 app.exercise.load(0);
+			 clearInterval(window.Timer);
+		}
+		var o=$("<div class='pflag' title='练习'></div>").clone(true);
+		var left=parseInt(times[i]/videolength*100)-0.3;
+		if(left>=100)
+		{
+			left=99.1;//结尾视频强制偏移
+		}
+		o.css("left",left+"%");
+		$(".f-progress-bar").append(o);
+	}
+
+	if('progress'==from)
+	{
+		fplayer.player.pauseVideo();
+		$(".f-icon-pause").trigger('click');
+		app.exercise.load(0);
+		clearInterval(window.Timer);
+	}
+	//$("[original-title]").tipsy({gravity:"s"});
+	
+	
+}
+
+function start_play_video(url)
+{
+	fplayer.player.playVideo({'data':url,'time':last_time});
+}
+function videoClose()
+{
+	var course_id=$("#wrapper").attr("data-courseid");
+	var url='/api/course_video_watch.php?op=save_viewtime&course_id='+courseid+'&eid='+eid;
+	$.post(url,{cur_time:cur_time},function(data){
+
+	});
+}
+function load_practice_time(cid,action)
+{
+
+	var url="/course.php?ac=course_view&op=get_practice_time&id="+cid+"&vid="+vid;
+/**	$.post(url,{},function(data){
+			
+			video_practice_timing=[];
+			for(var i=0;i<data.length;i++)
+			{
+				video_practice_timing[data[i]['testing_id']]=data[i]['occur_time_of_video'];
+			}
+			var videoInfo = fplayer.player.getVideoInfo();
+			add_pflag(videoInfo.duration);//添加作业图标
+			
+			
+		
+	},'json');**/
+	$.ajax({
+        type: "POST",
+        url: url,
+        data: {},
+        cache:false,
+        async:false,
+        dataType: "json",
+        success: function(data){
+        	video_practice_timing=[];
+			for(var i=0;i<data.length;i++)
+			{
+				video_practice_timing[data[i]['testing_id']]=data[i]['occur_time_of_video'];
+			}
+			var videoInfo = fplayer.player.getVideoInfo();
+			if(action=='nopflag')
+			{
+				$(".f-visited-bar").css("width","0%")
+			}
+			else
+			add_pflag(videoInfo.duration);//添加作业图标
+        }
+    });
+}
+
+$(function(){
+	
+	window.onbeforeunload = function()
+	{
+		videoClose();
+	}
+	cur_course_id=$("#wrapper").attr("data-courseid");
+//	setInterval(videoClose,2000);	
+	
+});
+function subplay(time)
+{
+	var arr=time.split(":");
+	var secs=parseInt(arr[0])*60+parseInt(arr[1]);
+	fplayer.playFromTime(secs);
+}
+
+function in_array(s,arr)
+{
+	for(var i in arr)
+	{
+		if(arr[i]==s)
+		{
+			return true;
+		}
+		
+	}
+	return false;
+}
+function playfinish(videolength)
+{
+//	 videolength=parseInt(videolength);
+
+	 /****播放完毕 设置观看完毕字段****/
+	// /api/course_video_watch.php?op=set_view_finish&course_id=363704&eid=6291
+	 var url="/api/course_video_watch.php?ac=course_view&op=set_view_finish&course_id="+courseid+"&eid="+eid;
+	 $.post(url,{},function(data){
+		 
+		 if('20001'!=data['flag'])
+		 {
+			 alert(data['msg']);
+		 }
+		 
+	 },'json');
+	 /*********/
+	 if(has_video_end_practice)
+	 {
+	 	 var op='finish2';
+		 //has_video_end_practice=parseInt(videolength);
+	 }
+	 else
+	 {
+		 var op='finish1';
+	 }
+	 
+	 url="/course.php?ac=course_excersize&op="+op+"&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid;
+	 //$('.f-exercise').load(url).show();
+	 $(".f-exercise").load(url,function(){
+		if('finish1'==op)//判断是否最后一节课
+		{
+			
+			//var cname=$(".tab4 li").last().prop("className");
+			var courseid_y=$(".independent-study ._chapter .con li").last().attr("data-courseid");
+			//var arr=cname.split(" ");
+			if(window.courseid==courseid_y)
+			{
+				//$(".finished-btns .btn-red").hide();
+			}
+			$('.f-exercise').show();
+			//if(window.cid==)	 
+		}
+		else
+		{
+			$('.f-exercise').show();
+		}
+		 
+	});
+}
+function backtokvideo()
+{
+	//window.location.href="/mooc/"+kvideoid;
+	window.location.href="/kvideo.php?do=course_progress&kvideoid="+kvideoid+"&classesid="+classesid;
+}
+function next_course()
+{
+	$(".tab4 ul li.cur").next().trigger("click");
+}
+function answer_video_end_practice()
+{
+	practice_at_video_end=1;
+	app.exercise.load(has_video_end_practice);
+}
+function video_practice_finish()
+{
+	var score=parseInt($(".fen-num").html());
+	var img_score;
+	if(score==100)
+	{
+		img_score=100;
+	}
+	else if(score>=90)
+	{
+		img_score=90;
+	}
+	else if(score>=80)
+	{
+		img_score=80;
+	}
+	else if(score>=70)
+	{
+		img_score=70;
+	}
+	else
+	{
+		img_score=60;
+	}
+	var left=$(".cprogress").width()/100*parseInt(score)-38;
+	$(".result_tips").css({"background-image":"url("+img_site+"static/uplayer/img/"+img_score+".png)",left:left});
+
+}
+function after_video_practice_load()
+{
+	var top1=$(".full_mask").height()/2-17;
+	var left=$(".full_mask").width()/2-250;
+	$(".answer_already").css({"top":top1,"left":left});
+}
+function reanswer()
+{
+	$(".full_mask,.answer_already").hide();
+}
+function resize_watch(){
+
+	//from='progress';
+	practice_at_video_end=0;
+	app.exercise.exerciseShow(0);
+	fplayer.playFromTime(0);
+	//app.exercise.init();
+
+}
+function view_result()
+{
+	var url="/course.php?ac=course_excersize&op=review_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid+"&occur_time_of_video="+cur_time;
+	$(".full_mask,.answer_already").remove();
+	$('#question-container').load(url,app.exercise.answer,function(data){
+				console.log(data);
+	});
+}

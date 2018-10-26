@@ -1,0 +1,767 @@
+var win=$('#wrapper');
+var murl=win.data('murl');
+var furl=win.data('furl');
+var fplayer = new Fplayer('container',"");
+var DISABLEPLAY=false;
+var video_practice_timing ={};
+var vid=0;
+var onOff ;
+window.d_flag=false;
+var ajax_url="";
+//fplayer.stopBarrage();
+var aside = new Aside('sources-show');
+aside.getCourseList();//取得小节课列表
+fplayer.getVideoTitle(courseid);//取字幕数据
+
+$(function(){
+	window.cur_is_race = 0;
+	window.cur_is_discuss = 0;
+	window.stop_time = 0;
+	window.stop_time_discuss = 0;
+	window.cur_kvideoid = 0;
+	window.cur_courseid = 0;
+	window.cur_classesid = 0;
+	window.cur_chapterid = 0;
+	window.cur_filename = '';
+
+	window.kvideoid=win.data('kvideoid');
+    window.classesid=win.data('classesid');
+    window.courseid=win.data('courseid'); //播放下一集时会变换
+	
+	var progressHoverTimer = null;
+	$(document).on("click",".independent-study ._chapter .tit",function(){
+		$(this).siblings(".con").slideToggle();
+	}).on("click",".independent-study ._chapter .con li",function(){
+		//视频播放切换
+		var courseid=$(this).attr('data-courseid');
+        location.href="/live/"+courseid;
+	}).on('click','.tabtwo li',function(){
+		var tab=$(this).data('tab');
+		$(this).addClass('active').siblings().removeClass('active');
+		$('.'+tab).show().siblings().hide();
+	}).on('click','.add-note',function(){
+		//记笔记
+		var _this = $(this);
+		var text = editor.getContent();
+
+		// var $this=$(this).prev();
+		// var text=$this.val();
+		// var type =$(this).attr("data-type");
+		// if(text=='')
+		// {
+		// 	alert("笔记内容不能为空");
+		// 	return;
+		// }
+		if(!editor.getContent()){
+			alert("笔记内容不能为空");
+		    return;
+		}
+		$(this).attr("disabled","disabled");
+		var url="/kvideo.php?do=coursenote_ajax&action=video_note&getnotetype=newnote&video_time="+cur_time;
+		var data={
+			content:text,
+			kvideoid:kvideoid,
+			courseid:courseid
+		};
+		$.post(url,data,function(data){
+			//console.log(data);
+			if(data.flag!='success')
+			{
+				alert('发布失败');
+			}
+			else
+			{
+				//换成走模板 
+			// var tmp=[
+   //              '<div class="note-item">',
+   //                  '<div class="item-top">',
+   //                      '<i class="icon icon-time"></i>',
+   //                      '<span>'+data.item.dateline+'</span>',
+			// 	        '<img class="edit_pen" src="'+baseurl+'edit_pen.png" style="float:right; width:24px">',//大家的笔记先 不显示
+   //                  '</div>',
+   //                  '<div class="item-content">',
+   //                      '<p>'+data.item.message+'</p>',
+   //                  '</div>',
+   //                  '<div class="item-bottom" style="visibility:hidden;">',
+   //                      '<div class="dolove" data-id="'+data.item.kvideoblog_id+'">',
+   //                      '<i class="icon icon-heart"></i>',
+   //                      '<span> 赞</span>',
+   //                      '</div>',
+   //                  '</div>',
+   //              '</div>'
+   //          ];
+			// if(type=="mynote"){
+			// 	$('.tab1 .item-container').prepend(tmp.join(''));
+			// }
+			}
+			$(".notes-tit .mynotes").trigger("click");
+			editor.setContent("");
+			editor.focus();
+			//$this.val('');
+			_this.removeAttr("disabled");
+
+
+		},'json');
+
+	}).on('click','.add-txt',function(){
+		//发弹幕
+		var $this=$(this).prev();
+		var text=$this.val();
+		var url="/";
+		var data={
+			text:text
+		};
+		$.post(url,data,function(data){
+			$this.val('');
+		});
+
+	}).on("mousedown",".progress",function (e) {
+		e.preventDefault();
+		window.d_flag=true;
+	}).on("mouseup","body",function () {
+		window.d_flag=false;
+		return;
+	}).on('mouseenter','.progress-cover,.progress',function(){
+		//clearTimeout(progressHoverTimer);
+		$('.progress-cover').hide();
+
+	}).on('mouseleave','.progress-cover,.progress',function(){
+         return;
+        //progressHoverTimer = setTimeout(function() {
+		//
+		//$('#container').stop(true).animate({'left': '0'},200,function(){
+		//	$('#container').css({'position': 'initial'});
+		//});
+		//$('.progress').stop(true).animate({'margin-left':'-94px'},200,function(){
+		//	$('.progress').css({'opacity':'1'});
+		//	$('.progress-cover').show();
+		//});
+		//
+		//
+		//}, 500);
+
+
+	}).on('mousemove','.progress',function(e){
+		e.preventDefault();
+		if (d_flag) {
+			var fix = $(".round").height() - $(".progress").height();
+
+			if ($(".round li").length > 7) {
+
+
+				if (window.lastY) {
+					var res = e.pageY - window.lastY;
+					if (res < 0) {
+						//鼠标上移
+
+						var num = Number($('.round').css('margin-top').replace('px', '')) - res;
+						num = (e.pageY - $(this).offset().top) / $(".progress").height() * fix;
+						//console.log(num);
+						// console.log('鼠标上移',res,num);
+						$('.round').css({'margin-top': -num + 'px'});//下走
+
+					}
+					else {
+						//le.log(e.pageY)
+						//鼠标下移
+						var num = Number($('.round').css('margin-top').replace('px', '')) - res;
+						num = (e.pageY - $(this).offset().top) / $(".progress").height() * fix;
+						// console.log('鼠标下移',res,num);
+						$('.round').css({'margin-top': -num - 80 + 'px'});
+
+
+					}
+				}
+			}
+		}
+		window.lastY=e.pageY;
+	}).on('click','.round li',function(e){
+		//var $this=$(this);
+		//var cid=$this.data('cid');
+		//aside.loadCourse(cid);
+		//aside.getNote('mynote');
+		//load_practice_time(cid);//加载习题时间
+		$(".round li").removeClass("active");
+		$(this).addClass("active");
+		
+	}).on("mousedown",".round li", function (e) {
+		   location.href="/live/"+$(this).data("courseid");
+		window.d_flag=false;
+		e.stopPropagation();
+
+		return false;
+	}).on("click",".tiger_fixed_1 .li", function () {
+		if($(this).hasClass("video")){
+			$("li[data-tab='tab2']").show();
+
+		}else{
+			$("li[data-tab='tab2']").hide();
+			$("li[data-tab='tab1']").trigger('click');
+			$(".tiger_fixed_1").animate({'margin-left':'0'},80);
+			$('.aside').animate({'top':'0'},300);
+			$(".aside .aside-tabs ul li").animate({'height':'60px'},80);
+		}
+		$(this).addClass("li-active").siblings().removeClass("li-active");
+	}).on("click",".tiger_fixed_1 .video", function () {
+		add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+		add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+		$('.fold-btn').show();
+		$('.left-silder').show();
+		$(".li[data-tab='tab2']").show();
+		$(".cover-cover").hide();
+		app.exercise.exerciseShow(0);
+		//video_practice_timing=[];
+		$(".f-progress-bar").find(".pflag").remove();
+		$.get($(this).data("url"),{}, function (data) {
+			window.cur_is_race = 0;
+			window.cur_is_discuss = 0;
+			if(data.flag=="20001"){//console.log(data.msg);
+				eid=data.msg.eid;
+				var video_url = '';
+				if(data.msg.transcode_succ_list["SD"]){
+					$(".f-mode-list .SD").show().attr("name","dblock").attr("data-video_url",data.msg.transcode_succ_list.SD["file_path"]);
+				}
+				if(data.msg.transcode_succ_list["LD"]){
+					$(".f-mode-list .LD").show().attr("name","dblock").attr("data-video_url",data.msg.transcode_succ_list.LD["file_path"]);
+				}
+				if(data.msg.transcode_succ_list["HD"]){
+					$(".f-mode-list .HD").show().attr("name","dblock").attr("data-video_url",data.msg.transcode_succ_list.HD["file_path"]);
+				}
+				if(data.msg.transcode_total_cnt==0){
+					video_url= data.msg.mp4_url;
+				} else{
+					if(Number(data.msg.transcode_succ_cnt)>0){
+						if(data.msg.transcode_succ_list["SD"]){
+							$("#uplayer_video").prop("src",data.msg.transcode_succ_list.SD["file_path"]);
+							video_url= data.msg.transcode_succ_list.SD["file_path"];
+						} else if(data.msg.transcode_succ_list["LD"]){
+							$("#uplayer_video").prop("src",data.msg.transcode_succ_list.LD["file_path"]);
+							video_url= data.msg.transcode_succ_list.LD["file_path"];
+						} else if(data.msg.transcode_succ_list["HD"]){
+							$("#uplayer_video").prop("src",data.msg.transcode_succ_list.HD["file_path"]);
+							video_url= data.msg.transcode_succ_list.HD["file_path"];
+						}
+					} else{
+						video_url= data.msg.mp4_url;
+						//$("#loading_gif").css({"background":"none","padding-top":"0","display":"block"}).text("视频加载失败!");
+					}
+				}
+
+
+				last_time=data.msg.viewtime;
+				fplayer.player.playVideo({'data':video_url,'time':parseInt(last_time)});
+			}else{
+				$("#loading_gif").css({"background":"none","padding-top":"0","display":"block"}).text(data.msg);
+				return false;
+				last_time=data.msg.viewtime
+				fplayer.player.playVideo({'data':data.msg.mp4_url,'time':parseInt(last_time)});
+			}
+		},"json");
+		vid=$(this).data("vid");
+
+		$.get("/course.php?ac=course_live&course_id="+courseid+"&op=cware&vid="+vid,{}, function (data) {
+			$("#lists").html(data);
+		});
+		$.get("/course.php?ac=course_live&op=testing&course_id="+courseid+"&vid="+vid,{}, function (data) {
+			var v=data.msg;
+			for(var i=0;i<v.length;i++){
+				video_practice_timing[v[i]["testing_id"]]=v[i]["timing"];
+			};
+			window.app.exercise.data.video_practice_timing = video_practice_timing;
+
+		},"json");
+
+		load_practice_time(courseid,'');
+		fplayer.getVideoTitle(courseid);
+		switchVideo(vid);
+	}).on("click",".tiger_fixed_1 .busywork", function () {
+		add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+		add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+		console_page()
+		fplayer.player.pauseVideo();
+		$(".cover-cover").show().css({"overflow-x":"hidden","overflow-y":"auto"});
+		ajax_url=$(this).data("url");
+		$.ajax({
+			url:$(this).data("url"),
+			type:"get",
+			success: function (data) {
+				window.cur_is_race = 0;
+				window.cur_is_discuss = 0;
+				$(".cover-cover").html(data);
+                audMedia('.unfold');
+                $(".knowledge_point_li_atlas").html("").html("非视频资源没有知识点");
+            }
+		});
+	}).on("click",".tiger_fixed_1 .datum", function () {
+		add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+		add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+		console_page()
+		fplayer.player.pauseVideo()
+		$(".cover-cover").show().css({"overflow-x":"hidden","overflow-y":"auto"});
+		ajax_url=$(this).data("url");
+		$.ajax({
+			url:$(this).data("url"),
+			type:"get",
+			dataType:"json",
+			success: function (data) {
+				window.cur_is_race = 0;
+				window.cur_is_discuss = 0;
+				$(".cover-cover").html(data.msg);
+                audMedia('.unfold');
+                $(".knowledge_point_li_atlas").html("").html("非视频资源没有知识点");
+			}
+		})
+	}).on("click",".tiger_fixed_1 .interact", function () {
+		add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+		var _this = $(this);
+		setTimeout(function(){
+			console_page();
+			fplayer.player.pauseVideo();
+			$(".cover-cover").show().css({"overflow-x":"hidden","overflow-y":"auto"});
+			ajax_url=_this.data("url");
+			var new_arr = ajax_url.split("&");
+			var arr_len = new_arr.length;
+			var data_frequency={}
+			for(var i=0;i<4;i++){
+				var y_l = new_arr[(arr_len-i-2)].split("=");
+				data_frequency[y_l[0]] = y_l[1];
+			}
+			
+			$.post();
+			$.ajax({
+				url:_this.data("url"),
+				type:"get",
+				success: function (data) {
+					$(".knowledge_point_li_atlas").html("").html("非视频资源没有知识点");
+					add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+					
+					//记录讨论观看时长
+					window.cur_kvideoid = data_frequency.kvideoid;
+					window.cur_classesid = data_frequency.classesid;
+					window.cur_chapterid = data_frequency.chapter_id;
+					window.cur_courseid = data_frequency.course_id;
+					window.cur_discuss_id = $("#interact_detail_tid").val();
+					//记录讨论观看时长
+					window.cur_is_race = 0;
+					window.cur_is_discuss = 1;
+					window.stop_time_discuss = (new Date()).getTime();
+
+					$(".cover-cover").html(data);
+					
+				}
+			})
+		},500);
+	}).on("click",".tiger_fixed_1 .courseware",function(){
+		add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+		add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+		var _this = $(this);
+		setTimeout(function(){
+			console_page()
+			fplayer.player.pauseVideo()
+			$(".cover-cover").show().css({"overflow-x":"hidden","overflow-y":"auto"});
+			ajax_url=$(this).data("url");
+			//记录课件观看时长
+			window.cur_kvideoid = _this.data("kvideoid");
+			window.cur_courseid = _this.data("courseid");
+			window.cur_classesid = _this.data("classesid");
+			window.cur_chapterid = _this.data("chapter_id");
+			window.cur_filename = _this.data("file_name");
+
+			//记录课件观看时长
+			var url = '/kvideo.php?do=course_cware_list&op=student_cware_list&kvideoid='+_this.data('kvideoid')+'&classesid='+_this.data('classesid');
+			var data = {
+				element_id:_this.data('eid')
+			}
+			$.post(url,data,function(data){
+				window.cur_is_race = 1;
+				window.cur_is_discuss = 0;
+				window.stop_time = (new Date()).getTime();
+				$(".cover-cover").html(data);
+				audMedia('.unfold');
+				$(".knowledge_point_li_atlas").html("").html("非视频资源没有知识点");
+			});
+		},500);
+
+	}).on("keydown",function(evt){//视频播放页面--全屏时增加空格键暂停
+		if($(".f-icon-full").attr("data-full")==1){
+			onOff=Number($("#onOff").attr("data-play"));
+			evt = (evt) ? evt : ((window.event) ? window.event : "");
+			keyCode = evt.keyCode ? evt.keyCode : (evt.which ? evt.which : evt.charCode);
+			if (keyCode == 32) {//alert(typeof onOff);alert(onOff)
+				if(onOff){
+					$(".f-icon-pause").trigger('click');onOff==0;
+				}else{
+					$('.f-icon-play').trigger('click');onOff==1;
+				}
+			}
+		}
+	}).on("click",".resourses-tab .tit li",function(){
+		var index = $(this).index();
+		$(this).addClass("active").siblings().removeClass("active");
+		$(".resourses-tab ul.cont li.knowledge_point_li").eq(index).show().siblings().hide();
+	});
+setTimeout(function () {
+	if(t_key){
+		$(".tiger_fixed_bottom_1 .li").eq(t_key).trigger("click");
+	}else{
+		$(".tiger_fixed_bottom_1 .li").eq(0).trigger("click");
+	}
+
+},1000);
+	
+	if(count_m>7){
+		if(count_p>5){
+			if(count_m-count_p>4){
+				var pasj=(4-count_p)*64;
+				$(".progress .round").css("margin-top",pasj+"px");
+			}else{
+				var pasj=(8-count_m)*64;
+				$(".progress .round").css("margin-top",pasj+"px");
+			}
+		}
+
+	}
+
+
+	window.app={};
+	app.exercise=
+	{
+		data:{"video_practice_timing":video_practice_timing},
+		answer:{},
+		init:function()
+		{
+			app.exercise.startcheckTime();
+			$(document).on('click','.ques-next',function(){
+				//下一题
+				var ques=$(this).closest('.question-item');
+				var checked=ques.find('input[type=radio]:checked');
+				if(checked.length>0)
+				{
+					app.exercise.answer[ques.data('id')]={type:1,answer:checked.val()};
+				}
+				else if(ques.data('must'))
+				{
+					salert('请选择一个答案！');
+					return;
+				}
+				else
+				{
+					app.exercise.answer[ques.data('id')]={type:1,answer:null};
+				}
+				ques.next().show().siblings().hide();
+
+			}).on('click','.ques-prev',function(){
+				//上一题
+				$(this).closest('.question-item').prev().show().siblings().hide();
+			}).on('click','.ques-submit',function(){
+				//提交
+				var ques=$(this).closest('.question-item');
+				var checked=ques.find('input[type=radio]:checked');
+				if(checked.length>0)
+				{
+					app.exercise.answer[ques.data('id')]={type:1,answer:checked.val()};
+				}
+				else if(ques.data('must'))
+				{
+					salert('请选择一个答案！');
+					return;
+				}
+				else //非必答
+				{
+					app.exercise.answer[ques.data('id')]={type:1,answer:null};
+				}
+				var url="/course.php?ac=course_excersize&op=submit_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid;
+				$('#question-container').load(url,app.exercise.answer,function(data){
+					video_practice_finish();
+				});
+			}).on('click','.ques-close',function(){
+				//关闭
+				app.exercise.exerciseShow(0);
+
+			}).on('click','.ques-result',function(){
+				//查看答题结果
+				var url="/course.php?ac=course_excersize&op=review_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid+"&occur_time_of_video="+cur_time;
+				$('#question-container').load(url,app.exercise.answer,function(data){
+					//console.log(data);
+				});
+
+			}).on('click','.quess-next',function(){
+				//多选下一题
+				var ques=$(this).closest('.question-item');
+				var checked=ques.find('input[type=checkbox]:checked');
+				//console.log(checked);
+				//多选可能选中多个
+				if(checked.length>0)
+				{
+					var arr=[];
+					$.each(checked,function(i,k){
+						arr.push($(k).val());
+					});
+					app.exercise.answer[ques.data('id')]= {type:2,answer:arr.join(';')};
+				}
+				else if(ques.data('must'))
+				{
+					salert('请选择一个答案！');
+					return;
+				}
+				else
+				{
+					app.exercise.answer[ques.data('id')]={type:2,answer:null};
+				}
+				ques.next().show().siblings().hide();
+
+			}).on('click','.quess-prev',function(){
+				//多选上一题
+				$(this).closest('.question-item').prev().show().siblings().hide();
+
+			}).on('click','.quess-close',function(){
+				//多选关闭
+				var ques=$(this).closest('.question-item');
+				var checked=ques.find('input[type=checkbox]:checked');
+				// console.log(checked);
+				//多选可能选中多个
+				if(checked.length>0)
+				{
+					var arr=[];
+					$.each(checked,function(i,k){
+						arr.push($(k).val());
+					});
+					app.exercise.answer[ques.data('id')]={type:2,answer:arr.join(';')};
+				}
+				else if(ques.data('must'))
+				{
+					salert('请选择一个答案！');
+					return;
+				}
+				else
+				{
+					app.exercise.answer[ques.data('id')]={type:2,answer:null};
+				}
+				app.exercise.exerciseShow(0);
+
+			}).on('click','.quess-submit',function(){
+				//多选提交
+				var ques=$(this).closest('.question-item');
+				var checked=ques.find('input[type=checkbox]:checked');
+				// console.log(checked);
+				//多选可能选中多个
+				if(checked.length>0)
+				{
+					var arr=[];
+					$.each(checked,function(i,k){
+						arr.push($(k).val());
+					});
+					app.exercise.answer[ques.data('id')]={type:2,answer:arr.join(';')};
+				}
+				else if(ques.data('must'))
+				{
+					salert('请选择一个答案！');
+					return;
+				}
+				else//多选非必答
+				{
+					app.exercise.answer[ques.data('id')]={type:2,answer:null};
+				}
+				var url="/course.php?ac=course_excersize&op=submit_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid;
+
+				$('#question-container').load(url,app.exercise.answer,function(data){
+					video_practice_finish();
+				});
+			}).on('click','.ques-reanswer',function(){
+				//必须答对的未答对，必须重答。cur_time 是全局变量
+				var url="/course.php?ac=course_excersize&op=redo_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid+"&occur_time_of_video="+cur_time;
+				$('#question-container').load(url,app.exercise.answer,function(data){
+					app.exercise.answer={};
+				});
+
+			});
+		},
+		exerciseShow:function(type)
+		{
+			app.exercise.answer={};
+			if(type)
+			{
+				//显示题目
+				window.DISABLEPLAY=true;
+			}
+			else
+			{
+				//回到播放界面
+				window.DISABLEPLAY=false;
+				$('.f-uplayer').show();
+				$('.f-exercise').empty().hide();
+				if(practice_at_video_end)
+				{
+					//$(".tab4 .cur").trigger('click');
+					var url="/course.php?ac=course_excersize&op=finish1"+"&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid;
+					$(".f-exercise").load(url,function(){
+
+						var cname=$(".tab4 li").last().prop("className");
+						var arr=cname.split(" ");
+						if(window.courseid==arr[0].substr(1))
+						{
+							//$(".finished-btns .btn-red").hide();
+						}
+						$('.f-exercise').show();
+
+
+
+					});
+				}
+				else
+					$('.f-icon-play').trigger('click');
+
+			}
+		},
+		load:function(cur_time)
+		{
+			clearInterval(window.Timer);
+			window.cur_time=cur_time;
+			//加载相应时间段题目
+			app.exercise.exerciseShow(1);
+			var url="/course.php?ac=course_excersize&op=do_testing&vid="+vid+"&kvideoid="+kvideoid+"&classesid="+classesid+"&course_id="+courseid+"&occur_time_of_video="+cur_time+"&vid="+vid;
+			$('.f-exercise').load(url,function(){
+				after_video_practice_load();
+				audMedia('.unfold');
+			}).show();
+
+			$('.f-uplayer').hide();
+		},
+		startcheckTime:function()
+		{
+			clearInterval(window.Timer);
+			window.Timer=setInterval(app.exercise.checkTime,1000);
+		},
+		checkTime:function()
+		{
+			if(parseInt(fplayer.player.getVideoTime())>0)
+			{
+				cur_time=parseInt(fplayer.player.getVideoTime());
+				var video_practice_timing = this.app.exercise.data.video_practice_timing
+
+				for(var i in video_practice_timing)
+				{
+					if(cur_time==video_practice_timing[i])
+					{
+						if(document.fullscreen || document.mozFullScreen ||document.webkitIsFullScreen || document.msfullscreenchange)//有作业时退出全屏
+						{
+							$(".f-uplayer").fullScreen(false);
+						}
+						fplayer.player.pauseVideo();
+						$(".f-icon-pause").trigger('click');
+						clearInterval(window.Timer);
+						app.exercise.load(cur_time);
+
+						break;
+					}
+				}
+			}
+		},
+		submit:function()
+		{
+			var url="";
+			var data=app.exercise.answer;
+			$.post(url,data,function(){
+
+			});
+		}
+
+	};
+
+
+	app.exercise.init();
+
+});
+function console_page(){
+	$('.aside-content').animate({'left':'0'},function(){});
+	$('.fplayer').animate({'left':'0'});
+	$('.fold-btn').hide();
+	$('.unfold-btn').hide();
+	$('.left-silder').hide();
+	window.isfold=false;
+	$(".tiger_fixed_bottom_1").animate({width:855});
+}
+window.coursenote_type = 'all';
+function notetype_set(type,ele,time){
+	window.coursenote_type = type
+    var param = 'kvideoid='+$('#wrapper').data('kvideoid')+'#classesid='+$('#wrapper').data('classesid')+'#page_flag=coursenote_list#curpage=1#courseid='+courseid+'#orderby='+time+'#notetype='+type+'#chapterid='+chapterid;
+    var url = '/kvideo.php?do=coursenote_ajax_new';
+    var data = {
+        "action":"note_list",
+        param:param
+    }
+    $.post(url,data,function(data){
+    	//console.log(156);
+        $(ele).addClass("active").siblings().removeClass("active");
+        $(".note_knowledge_point .plt").html(data);
+        var imgArr = $(".note_knowledge_point .plt").find(".notes-con .note-detail img");
+		setTimeout(function(){
+			for(var i=0;i<imgArr.length;i++){
+				if(imgArr.eq(i).width()>=450){
+					imgArr.eq(i).css("width","100%");
+				}
+			}
+		},500);
+    });
+}
+function _x_notetype_set(ele,time){
+	notetype_set(window.coursenote_type,ele,time);
+}
+function add_file_frequency(kvideoid,classesid,chapter_id,course_id,file_name,stop_time){
+	if(window.cur_is_race){
+		var url = '/course.php?ac=course_single_add_new&op=add_file_frequency&kvideoid='+kvideoid+'&classesid='+classesid;
+		var stop_time = Math.ceil( ((new Date()).getTime()-window.stop_time)/1000 );
+		var data = {
+			chapter_id:chapter_id,
+			course_id:course_id,
+			file_name:file_name,
+			stop_time:stop_time
+		}
+		$.post(url,data,function(data){
+			data = JSON.parse(data);
+			if(data.flag!=200){
+				alert(data.msg);
+			}
+		});
+	}
+}
+function add_file_frequency(kvideoid,classesid,chapter_id,course_id,file_name,stop_time){
+	if(window.cur_is_race){
+		var url = '/course.php?ac=course_single_add_new&op=add_file_frequency&kvideoid='+kvideoid+'&classesid='+classesid;
+		var stop_time = Math.ceil( ((new Date()).getTime()-window.stop_time)/1000 );
+		var data = {
+			chapter_id:chapter_id,
+			course_id:course_id,
+			file_name:file_name,
+			stop_time:stop_time
+		}
+		$.post(url,data,function(data){
+			data = JSON.parse(data);
+			if(data.flag!=200){
+				alert(data.msg);
+			}
+		});
+	}
+}
+function add_discuss_frequency(kvideoid,classesid,chapter_id,course_id,cur_discuss_id,stop_time){
+	if(window.cur_is_discuss){
+		var url = '/course.php?ac=course_single_add_new&op=add_discuss_frequency&kvideoid='+kvideoid+'&classesid='+classesid;
+		var stop_time_discuss = Math.ceil( ((new Date()).getTime()-window.stop_time_discuss)/1000 );
+		var data = {
+			chapter_id:chapter_id,
+			course_id:course_id,
+			discuss_id:$("#interact_detail_tid").val(),
+			stop_time:stop_time_discuss		
+		}
+		$.post(url,data,function(data){
+			data = JSON.parse(data);
+			if(data.flag!=200){
+				alert(data.msg);
+			}
+		});
+	}
+}
+window.onunload = function(){
+	add_file_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_filename,window.stop_time);
+	add_discuss_frequency(window.cur_kvideoid,window.cur_classesid,window.cur_chapterid,window.cur_courseid,window.cur_discuss_id,window.stop_time_discuss);
+};

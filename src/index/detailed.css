@@ -1,0 +1,25 @@
+html{color:#000;font-family:"微软雅黑",Arial,sans-serif,Helvetica}body{background-color:#f2f2f2}body,div,ul,li,p{margin:0;padding:0}img{max-width:100%}.detailed-img{width:100%}.detailed-center{width:960px;margin:0 auto}.detailed-center .detailed-school{width:100%;height:175px;position:relative}.detailed-center .detailed-school .detail-cont{left:190px}.detailed-center .detailed-school .detail-cont .school-name{font-size:30px;padding:30px}.detailed-center .detailed-school .detail-img{top:-50px}.detailed-center .detailed-school li{display:inline-block;position:absolute}.detailed-center .detailed-school li .school-detail{width:750px;max-height:649px;overflow:hidden;word-wrap:break-word;float:left;font-size:16px;color:#6d6d6d;text-indent:2em}.detailed-center .detailed-school li  .expand{width:86px;height:26px;background-color:#404040;display:inline-block;line-height:26px;color:#fff;font-size:14px;}.detailed-center .student-list{width:100%;margin-top:46px}.detailed-center .student-list li{display:inline-block;margin-top:30px;margin-left:32px}.detailed-center .student-list li .student-class-name{background:url(/static/cooperate-school/school-detailed/img/list-red.png) 240px 8px no-repeat}.detailed-center .student-list li .student-class-name span{font-size:20px;width:230px;height:28px;overflow:hidden;display:inline-block;color:#000;text-overflow:ellipsis;white-space:nowrap}.detailed-center .student-list li .stu-menu{margin-top:5px;}.detailed-center .student-list li .stu-menu span{font-size:16px;color:#858585}.detailed-center .student-list li .stu-menu .stu-menu-sch{width:69px;height:22px;overflow:hidden;display:inline-block}.detailed-center .student-list li .stu-menu .detail-per{padding-left:25px;display:inline-block;background:url(/static/cooperate-school/school-detailed/img/list-ren.png) 0 7px no-repeat;margin-left:20px;width:25px;height:21px;overflow:hidden;text-overflow:ellipsis;white-space:nowrap}.detailed-center .student-list li .stu-menu .detail-news{background:url(/static/cooperate-school/school-detailed/img/xin.png) 0 4px no-repeat;display:inline-block;height:21px;margin-left:10px;overflow:hidden;padding-left:28px;text-overflow:ellipsis;white-space:nowrap;width:30px}.detailed-center .student-list li .stu-menu .stu-name{margin-left:10px;width:48px;height:23px;overflow:hidden;display:inline-block}.detailed-center .student-list .student-two{margin-left:85px}.detailed-center .detail-teacher{width:100%;margin-top:50px}.detailed-center .detail-teacher li{width:470px;height:180px;text-align:center;display:inline-block;margin-top:40px}.detailed-center .detail-teacher li div{display:inline-block}.detailed-center .detail-teacher li .detail-name{margin-top:-20px}.detailed-center .detail-teacher li .detail-name .deta-name{font-size:26px;width:80px;height:40px;overflow:hidden;margin-left:10px;text-overflow:ellipsis;white-space:nowrap}.detailed-center .detail-teacher li .detail-name .deta-zc{font-size:18px;color:#6d6d6d;width:82px;height:28px;overflow:hidden;margin-left:20px}.detailed-center .detail-teacher li .detail-name .deta-zc-sch{font-size:18px;color:#6d6d6d;width:100px;height:28px;overflow:hidden}.detailed-center .detail-email{width:100%;height:115px;background-color:#dcdcdc;margin-top:60px;margin-bottom:100px}.detailed-center .detail-email li{display:inline-block;margin:30px}.detailed-center .detail-email .teach-apply{width:196px;height:59px;background-color:#404040;float:right;color:#fff;font-size:22px;line-height:59px;text-align:center}.detailed-center .detail-email .detai-wz-icon{display:block;padding-left:26px;background:url(/static/cooperate-school/school-detailed/img/email.png) 0 7px no-repeat}.detailed-center .detail-email .detai-wzdz-icon{padding-left:25px;display:block;margin-top:15px;background:url(/static/cooperate-school/school-detailed/img/map.png) 0 6px no-repeat}.student-class-name span a{color:#000}.detail-teacher img{border-radius:100%}.school_moredetail{display: none;width: 750px;overflow: hidden;word-wrap: break-word;text-indent: 2em;color: #6d6d6d;}.moreCourse{margin: 20px auto;width: 260px}.moreCourse a{font-size:16px;width:100%;box-sizing:border-box;-moz-box-sizing: border-box;-webkit-box-sizing: border-box}
+.detailed-center .detailed-school li.staticDetail-cont{position: static;margin-left: 190px;}.detailed-center .staticDetailed-school{height: auto;}
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+
+

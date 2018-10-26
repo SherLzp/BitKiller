@@ -1,0 +1,15 @@
+.reg_tk{margin-top:5px;font-size:14px;font-family:Microsoft YaHei;color:#fff}.reg_qtlogin{cursor:pointer;margin-left:130px}.reg_mar{margin-left:2px}.reg_none{position:absolute;left:-115px;display:none}.reg_icon_tao{width:30px;height:29px;background-image:url(/static/login/img/icon.jpg);margin-top:12px;cursor:pointer}.reg_icon_sina{width:30px;height:25px;background-image:url(/static/login/img/icon.jpg);background-position:-50px 0;margin-top:12px;cursor:pointer}.reg_icon_qq{width:33px;height:25px;background-image:url(/static/login/img/icon.jpg);background-position:-97px 0;margin-top:12px;cursor:pointer}.reg_icon_rr{width:45px;height:25px;background-image:url(/static/login/img/icon.jpg);background-position:-145px 0;margin-top:12px;cursor:pointer}.reg_hover_tao{width:30px;height:29px;background-image:url(/static/login/img/hover_icon.jpg);margin-top:12px;cursor:pointer}.reg_hover_sina{width:30px;height:25px;background-image:url(/static/login/img/hover_icon.jpg);background-position:-50px 0;margin-top:12px;cursor:pointer}.reg_hover_qq{width:33px;height:25px;background-image:url(/static/login/img/hover_icon.jpg);background-position:-97px 0;margin-top:12px;cursor:pointer}.reg_hover_rr{width:45px;height:25px;background-image:url(/static/login/img/hover_icon.jpg);background-position:-145px 0;margin-top:12px;cursor:pointer}.reg_iconss{width:262px;height:50px;background-color:#fff;position:absolute;left:30px}.reg_iconss li{margin-left:25px}.reg_icon{width:24px;height:12px;background-image:url(/static/login/img/more.png);margin-left:140px}.reg_none{position:absolute;left:15px;display:none}.reg_check li{float:left;font-size:14px}.reg_mar a{color:#fff}.reg_mar a{color:#fff}.reg_qtlogin,.reg_mar{color:#fff}
+/*密码强度功能样式*/
+.pwd_tip{ margin-left: 30px; height: 30px; }
+.pwd_tip .range_tip{font-size:16px;height:30px;color:#cc0001; display: none; }
+.range_tip_add{padding-left:20px;background-image: url(/static/login/img/pwd_range_tip.png);background-position:0px;background-repeat: no-repeat;}
+.pwd_tip .pwd_level{  font-size: 16px; color:#000; display: none;  }
+.pwd_tip .pwd_level span{float: left;}
+#level_1,#level_2,#level_3{ width: 20px; height: 6px; border:1px solid #fff; margin-left: 6px; margin-top: 10px; float: left;  }
+.pwd_tip .level_red{color: #cc0001; background-color: #cc0001; }
+.pwd_tip .level_yellow{color:#ffb62a;background-color: #ffb62a;}
+.pwd_tip .level_green{color:#66b816;background-color: #66b816;}
+/*重置密码时显示密码强度*/
+.pwd_tip_reset{float: left; margin-top: 6px; margin-left: 6px; }
+.pwd_tip_reset .pwd_level{ font-size: 16px; color:#000; display: none;}
+.pwd_tip_reset #level_1,.pwd_tip_reset #level_2,.pwd_tip_reset #level_3{ width: 20px; height: 6px; border:1px solid #f00; margin-left: 6px; margin-top: 16px; float: left;  }

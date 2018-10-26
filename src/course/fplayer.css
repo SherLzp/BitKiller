@@ -1,0 +1,344 @@
+.fplayer {
+  position: relative;
+  width: 855px;
+  height: 100%;
+  background-color: #000;
+  float: left;
+  z-index: 100;
+}
+.f-text-btnCurrent{background-color: #000;padding: 2px 12px;}
+.fplayer .f-uplayer {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  cursor: pointer;
+}
+.fplayer .f-uplayer * {
+  cursor: pointer;
+}
+.fplayer .f-exercise {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 40px;
+  background: #fff;
+  display: none;
+  z-index:9
+}
+.fplayer .f-action-bar {
+  display: none;
+  position: absolute;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  height: 44px;
+  background-color: #1a1a1a;
+  z-index: 6;
+}
+.fplayer .f-icon-panel {
+  position: absolute;
+  top: 8px;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  padding: 4px 0 6px;
+  font-size: 14px;
+  color: #a6a6a6;
+}
+.fplayer .f-icon-panel i {
+  display: inline-block;
+  width: 22px;
+  height: 20px;
+  margin: 0 10px 0 5px;
+  cursor: pointer;
+}
+.fplayer .f-icon-full{
+  vertical-align: -3px;
+}
+.fplayer .f-icon-panel i:before {
+  content: '';
+}
+.fplayer .f-text-list,.fplayer .f-mode-list{
+  display: none;
+  position: absolute;
+  bottom: 40px;
+  right: 88px;
+  width: 60px;
+  margin: 0px;
+  padding: 10px;
+  background-color: #1A1A1A;
+  list-style: outside none none;
+  text-align: center;
+}
+.fplayer .f-mode-list{right: 136px;}
+/***.fplayer .f-text-list:hover{display:block;}***/
+.fplayer .f-text-list li ,.fplayer .f-mode-list li{
+  display: block;
+  height: 27px;
+  line-height: 27px;
+  cursor: pointer;
+  color: #9F9F9F;
+}
+.fplayer .f-text-list li:hover,.fplayer .f-mode-list li:hover,.fplayer .f-text-list li.active ,.fplayer .f-mode-list li.active{
+  background-color: #313131;
+  color: #FFF;
+}
+.fplayer .f-volume-bar {
+  position: relative;
+  top: -8px;
+  display: inline-block;
+  width: 68px;
+  height: 5px;
+  background-color: #777;
+  cursor: pointer;
+  vertical-align: middle;
+  margin-right: 8px;
+}
+.fplayer .f-cur-volume {
+  width: 100%;
+  height: 100%;
+  background-color: #d22a29;
+  text-align: right;
+  cursor: pointer;
+}
+.fplayer .f-volume-spin {
+  position: relative;
+  top: -10px;
+  display: inline-block;
+  width: 12px;
+  height: 12px;
+  background-color: #fff;
+  cursor: pointer;
+  border-radius: 50%;
+}
+.fplayer .f-text-btn {
+  margin: 0 8px;
+  line-height: 20px;
+  vertical-align: 4px;
+  cursor: pointer;
+}
+.fplayer .f-play-time {
+  vertical-align: 4px;
+}
+.fplayer .f-progress-bar {
+  position: relative;
+  width: 100%;
+  height: 8px;
+  background: rgba(194,186,186,.4) !important;
+  background: #c2baba;
+  cursor: pointer;
+  top: 0px;
+}
+.fplayer .f-buffer-bar,
+.fplayer .f-visited-bar {
+  position: absolute;
+  top: 0;
+  left: 0;
+  width: 0%;
+  height: 100%;
+  background-color: #777;
+  z-index: 1;
+}
+.fplayer .f-visited-bar {
+  background-color: #d22a29;
+  z-index: 2;
+  text-align: right;
+}
+.fplayer .f-progress-spin {
+    position: relative;
+    display: inline-block;
+    top: -8px;
+    width: 22px;
+    height: 22px;
+    background: url(/img/icon-spin.png?__sprite) no-repeat;
+    cursor: pointer;
+    z-index: 9;
+}
+.fplayer .f-action-right{position: absolute;left: 0px;top:0px;}
+.fplayer .f-action-right .vedioMode span{ display: block; }
+.fplayer .f-action-right {
+  float: right;
+  position: relative;
+}
+.fplayer .f-icon-back:before {
+  display: inline-block;
+  width: 20px;
+  height: 17px;
+  margin: 3.5px 5px;
+  background: url(/img/icon-back.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-back:hover:before {
+  background: url(/img/icon-back-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-forward:before {
+  display: inline-block;
+  width: 22px;
+  height: 17px;
+  margin: 3.5px 4.5px 3.5px 2px;
+  background: url(/img/icon-forward.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-forward:hover:before {
+  background: url(/img/icon-forward-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-frame:before {
+  display: inline-block;
+  width: 18px;
+  height: 12px;
+  margin: 3px 1px;
+  background: url(/img/icon-frame.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-frame:hover:before {
+  background: url(/img/icon-frame-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-full:before {
+  display: inline-block;
+  width: 20px;
+  height: 20px;
+  margin: 2px 0;
+  background: url(/img/icon-full.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-full:hover:before {
+  background: url(/img/icon-full-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-sound:before {
+  display: inline-block;
+  width: 22px;
+  height: 18px;
+  margin: 3.5px 1.5px;
+  background: url(/img/icon-sound.png?__sprite) no-repeat center;
+}
+.fplayer .f-icon-sound:hover:before {
+  background: url(/img/icon-sound-hover.png?__sprite) no-repeat center;
+}
+.fplayer .f-icon-nextvideo:before {
+  background: url(/img/icon-forward.png) no-repeat center;
+  display: block;
+  width: 20px;
+  height: 18px;
+}
+.fplayer .f-icon-mute:before {
+  display: inline-block;
+  width: 20px;
+  height: 18px;
+  margin: 3px 0 3px 2px;
+  background: url(/img/icon-mute.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-mute:hover:before {
+  background: url(/img/icon-mute-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-play:before {
+  display: inline-block;
+  width: 16px;
+  height: 18px;
+  margin: 3.5px 5.5px 3.5px 0;
+  background: url(/img/icon-play.png?__sprite) no-repeat center;
+}
+.fplayer .f-icon-panel i.f-icon-play,.fplayer .f-icon-panel i.f-icon-pause{
+  margin-left: 20px;
+}
+.fplayer .f-icon-play:hover:before {
+  background: url(/img/icon-play-hover.png?__sprite) no-repeat center;
+}
+.fplayer .f-icon-pause:before {
+  display: inline-block;
+  width: 16px;
+  height: 18px;
+  margin: 3.5px 5.5px 3.5px 0;
+  background: url(/img/icon-pause.png?__sprite) no-repeat;
+}
+.fplayer .f-icon-pause:hover:before {
+  background: url(/img/icon-pause-hover.png?__sprite) no-repeat;
+}
+.fplayer .f-speed-list {
+  display: none;
+  position: absolute;
+  bottom: 40px;
+  right: 58px;
+  width: 60px;
+  margin: 0;
+  padding: 10px;
+  background-color: #1a1a1a;
+  list-style: none;
+  text-align: center;
+}
+.fplayer .f-speed-list span {
+  display: block;
+  height: 27px;
+  line-height: 27px;
+  cursor: pointer;
+  color: #9f9f9f;
+}
+.fplayer .f-speed-list span:hover {
+  background-color: #313131;
+  color: #fff;
+}
+.fplayer .f-speed-list .active span {
+  background-color: #313131;
+  color: #fff;
+}
+.fplayer .f-video-title {
+  position: absolute;
+  width: 100%;
+  height: 40px;
+  bottom: 0;
+  background-color: rgba(0, 0, 0, 0.7);
+  color: #fff;
+  line-height: 40px;
+  text-align: center;
+  z-index: 5;
+}
+.fplayer .f-barrage-con {
+  position: absolute;
+  width: 100%;
+  height: 0;
+  padding-top: 25%;
+}
+.fplayer .f-video-barrage {
+  position: absolute;
+  top: 0;
+  width: 100%;
+  height: 100%;
+  pointer-events: none;
+  z-index: 5;
+}
+.f-fullscreen-ie {
+  position: fixed;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  z-index: 99999;
+}
+.pflag
+{
+	background:url(./img/pflag.png) no-repeat;
+	width:10px;
+	height:10px;
+	position:absolute;
+	z-index: 4;
+}
+.action-bar-wrapper{height: 45px;
+position: absolute;
+left: 0px;
+bottom: 0px;
+width: 100%;}
+
+
+/*缓冲样式*/
+#loading_gif {
+    background: rgba(0, 0, 0, 0) url("./img/loading_32.gif") no-repeat scroll center top / 50px auto;
+    color: #cccccc;
+    display: none;
+    left: 50%;
+    padding-top: 60px;
+    position: absolute;
+    text-align: center;
+    top: 50%;
+    width: 300px;
+    z-index: 999;
+    margin-top: -15px;
+    margin-left: -150px;
+}
