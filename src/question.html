@@ -5,7 +5,7 @@
     <meta http-equiv="X-UA-Compatible" content="IE=edge">
     <meta name="viewport" content="width=device-width, initial-scale=1">
     <!-- The above 3 meta tags *must* come first in the head; any other head content must come *after* these tags -->
-    <title>Election Results</title>
+    <title>Answer Questions</title>
 
     <!-- Bootstrap -->
     <link href="css/bootstrap.min.css" rel="stylesheet">
@@ -21,32 +21,40 @@
     <div class="container" style="width: 650px;">
       <div class="row">
         <div class="col-lg-12">
-          <h1 class="text-center">Election Results</h1>
+          <h1 class="text-center">Answer Questions</h1>
           <hr/>
           <br/>
-          <div id="loader">
+          <!--div id="loader">
             <p class="text-center">Loading...</p>
           </div>
-          <div id="content" style="display: none;">
+          <div id="content" style="display: none;"-->
             <table class="table">
               <thead>
                 <tr>
-                  <th scope="col">#</th>
-                  <th scope="col">Name</th>
-                  <th scope="col">Votes</th>
+                  <th scope="col"></th>
+
                 </tr>
               </thead>
               <tbody id="candidatesResults">
               </tbody>
             </table>
-            <hr/>
-            <form onSubmit="App.castVote(); return false;">
-              <div class="form-group">
-                <label for="candidatesSelect">Select Candidate</label>
-                <select class="form-control" id="candidatesSelect">
-                </select>
-              </div>
-              <button type="submit" class="btn btn-primary">Vote</button>
+            <form action="" method="get"> 
+                1、What feature is a unique characteristic that a dApp has that makes it different from other types of web applications?<br /><br />
+                <label><input name="Fruit" type="checkbox" value="" />  Server</label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Graphical User Interface </label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Database </label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Smart Contract<br /><br /> 
+                2、What is the purpose of gas in the Ethereum blockchain？<br /><br /> 
+                <label><input name="Fruit" type="checkbox" value="" />  To create a unit of Ether that is constant regardless of the size of the transaction.
+                </label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Gas is a token used to pay for the cost of transactions </label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Gas is a petrochemical that is used to power the generators which house the nodes.
+                </label> <br />
+                <label><input name="Fruit" type="checkbox" value="" />  Gas is a fee paid by participants to conduct transactions or execute smart contract code. </label><br /><br /> 
+            </form> 
+                3、What do you think of the security performance of Ethereum?<br /><br /> 
+                <input type="text" style="height:88px;width:500px" placeholder="Please input your answer here!"><br /><br /> 
+              <button type="submit" class="btn btn-primary">Submit</button>
               <hr />
             </form>
             <p id="accountAddress" class="text-center"></p>
@@ -55,13 +63,10 @@
       </div>
     </div>
 
-    <!-- jQuery (necessary for Bootstrap's JavaScript plugins) -->
-    <script src="https://ajax.googleapis.com/ajax/libs/jquery/1.12.4/jquery.min.js"></script>
-    <!-- Include all compiled plugins (below), or include individual files as needed -->
-    <script src="js/bootstrap.min.js"></script>
+    <!--script src="js/jquery.min.js"></script>
     <script src="js/web3.min.js"></script>
+    <script src="js/bootstrap.min.js"></script>
     <script src="js/truffle-contract.js"></script>
-    <script src="js/app.js"></script>
+    <script src="js/app.js"></script-->
   </body>
 </html>
-
