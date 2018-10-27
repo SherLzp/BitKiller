@@ -247,13 +247,18 @@
                                </div>
                            </div>
                        </div>
-                        <div id="container" style="width: 100%">
-                        <div class="fplayer" style="overflow: hidden;"><p id="loading_gif" style="display: none;">正在缓冲，请稍后...</p><div class="f-uplayer"><div class="f-barrage-con"><canvas class="f-video-barrage" width="2400" height="600"></canvas></div><div class="f-video-title" style="display: none;"></div><div id="uplayer_container_root" style="width: 100%; height: 100%; position: relative; background-color: rgb(0, 0, 0);"><video id="uplayer_video" autoplay="true" style="width:100%;height:100%" src="http://v1.chinesemooc.org/4806/785636/785636-1505573383_SD.mp4"></video></div></div><div class="f-exercise" style="display: block;">
+                        <!--div id="container" style="width: 100%"-->
+                        
+        <div style="text-align:center;">
+        <br /> 
+        <video id="example_video_1" class="video-js vjs-default-skin" controls preload="none" width="100%" height="100%"  data-setup="{}">
+            <!--source src="http://vjs.zencdn.net/v/oceans.mp4" type="video/mp4"-->
+            <source src="https://d18ky98rnyall9.cloudfront.net/4YEpiGNNEeiFLgr123Yivg.processed/full/540p/index.webm?Expires=1540771200&Signature=bLBPrAFMho9EDoMgqEiHmUmxjOaY6A4zlheMJ84DkaKI7dZSUp2n7oBO13JvZ4oFVDpLteihiTAErTOAgAdBg69gCp8WfsmHbzO9azBWD-Y1qQ69X0n2us39dXcuikovMj6T~0p39FkrIbHlVIa2kM-L4wUg0SfLq5NPiXZkiuA_&Key-Pair-Id=APKAJLTNE6QMUY6HBC5A" type="video/webm">
+            <p class="vjs-no-js">To view this video please enable JavaScript, and consider upgrading to a web browser that <a href="http://videojs.com/html5-video-support/" target="_blank">supports HTML5 video</a></p>
+          </video>
+      </div> 
 <div class="finish-wrapper">
-<h1 class="finished-title">课程已播放完毕，谢谢观看！</h1>
 <div class="finished-btns">
-<button class="btn btn-grey" onclick="backtokvideo()" style="display: none;">返回课程首页</button>
-<button class="btn btn-red" onclick="resize_watch()">重新观看</button>
 </div>
 </div>
 </div><div class="action-bar-wrapper" style="overflow: hidden; height: 0px;"><div class="f-action-bar" style="display: block;"><div class="f-progress-bar"><div class="f-buffer-bar"></div><div class="f-visited-bar" style="width: 100%;"><span class="f-progress-spin"></span></div></div><div class="f-icon-panel"><i class="f-icon-back"></i><i id="onOff" class="f-icon-play" data-play="1"></i><i class="f-icon-forward"></i><i style="display:none;" class="f-icon-nextvideo"></i><i class="f-icon-sound"></i><div class="f-volume-bar"><div class="f-cur-volume"><span class="f-volume-spin"></span></div></div><span class="f-play-time"><span class="f-cur-time">01:59</span>/<span class="f-total-time">01:59</span></span><div class="f-action-right"><span class="f-text-btn LD f-mode-btn">标清</span><ul class="f-mode-list"><li type="en" class="LD" name="dblock" data-video_url="http://v1.chinesemooc.org/4806/785636/785636-1505573383_LD.mp4"><span>流畅</span></li><li type="cn_trad" class="SD" name="dblock" data-video_url="http://v1.chinesemooc.org/4806/785636/785636-1505573383_SD.mp4"><span>标清</span></li><li type="active" class="HD" name="dblock" data-video_url="http://v1.chinesemooc.org/4806/785636/785636-1505573383_HD.mp4"><span>高清</span></li></ul><span class="f-text-btn f-subtitle">字幕</span><ul class="f-text-list"><li class="active" type="cn">中文</li><li type="en">英文</li><li type="cn_trad">繁体</li></ul><span class="f-text-btn f-speed">速度</span><ul class="f-speed-list"><li><span>2</span></li><li><span>1.5</span></li><li class="active"><span>1</span></li><li><span>0.75</span></li></ul><i class="f-icon-frame"></i><i class="f-icon-full" title="全屏"></i></div></div></div></div></div></div>
@@ -270,7 +275,32 @@
  
     <!-- 公共底部开始 -->
     <!-- 公共底部开始 -->
+<script type="text/javascript">
+var myVideo=document.getElementById("video1");
 
+function playPause()
+{ 
+if (myVideo.paused) 
+  myVideo.play(); 
+else 
+  myVideo.pause(); 
+} 
+
+function makeBig()
+{ 
+myVideo.width=560; 
+} 
+
+function makeSmall()
+{ 
+myVideo.width=320; 
+} 
+
+function makeNormal()
+{ 
+myVideo.width=420; 
+} 
+</script> 
 <!--统计代码start-->
 <script>
 var _hmt = _hmt || [];

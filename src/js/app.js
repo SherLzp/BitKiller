@@ -123,15 +123,18 @@ App = {
   signup: function(){
     App.contracts.PushStudy.deployed().then(function(instance){
       pushStudyInstance = instance;
-      pushStudyInstance.signup();
-      $("#sign").setAttribute("disabled",true);
-      alert("报名成功！");
+      pushStudyInstance.signup({from: web3.eth.accounts[1],to: web3.eth.accounts[0], value: web3.toWei(1)});
+      document.getElementById("sign").setAttribute("disabled",true);
+      setTimeout(6);
+      $("#beginStudy").show();
+      //alert("报名成功！")
     })
   }
 };
 
 $(function() {
   $(window).load(function() {
+    $("#beginStudy").hide();
     App.init();
   });
 });
