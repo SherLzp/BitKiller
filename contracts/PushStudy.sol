@@ -6,9 +6,8 @@ contract PushStudy{
     
     uint fee = 1 ether;
 
-    function signup() public payable returns(bool){
+    function signup() public payable{
         require(msg.sender.balance >= fee,"余额不足");
-        return true;
     }
 
     function PushStudy() public payable{
