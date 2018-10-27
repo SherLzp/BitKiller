@@ -23,7 +23,7 @@ contract Review {
     );
 
     function Review () public {
-        addCandidate("Answer Here");
+        addCandidate("It's My Answer");
     }
 
     function addCandidate (string _name) private {
@@ -35,31 +35,15 @@ contract Review {
         // require that they haven't voted before
         require(!voters[msg.sender]);
 
-        // require a valid candidate
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
-
         // record that voter has voted
         voters[msg.sender] = true;
 
         // update candidate vote Count
-        candidates[_candidateId].voteCount_yes ++;
-
-        // trigger voted event
-        votedEvent(_candidateId);
-    }
-
-    function vote_no (uint _candidateId) public {
-        // require that they haven't voted before
-        require(!voters[msg.sender]);
-
-        // require a valid candidate
-        require(_candidateId > 0 && _candidateId <= candidatesCount);
-
-        // record that voter has voted
-        voters[msg.sender] = true;
-
-        // update candidate vote Count
-        candidates[_candidateId].voteCount_no ++;
+        if(_candidateId == 1){
+            candidates[1].voteCount_yes ++;
+        }else{
+            candidates[1].voteCount_no ++;
+        }
 
         // trigger voted event
         votedEvent(_candidateId);

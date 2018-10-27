@@ -85,9 +85,8 @@ App = {
           var name = candidate[1];
           var voteCount_yes = candidate[2];
           var voteCount_no = candidate[3];
-
           // Render candidate Result
-          var candidateTemplate = "<tr><th>" + name + "</td><td>" + voteCount_yes +"</td><td>"+ voteCount_no+ "</td></tr>"
+          var candidateTemplate = "<tr><th>" + name + "</td><td>" + voteCount_yes +"</td><td>"+ voteCount_no+ "</th></tr>"
           candidatesResults.append(candidateTemplate);
 
         });
@@ -108,20 +107,7 @@ App = {
   castVote: function() {
     var candidateId = $('#candidatesSelect').val();
     App.contracts.Review.deployed().then(function(instance) {
-      return instance.vote_yes(candidateId, { from: App.account });
-    }).then(function(result) {
-      // Wait for votes to update
-      $("#content").hide();
-      $("#loader").show();
-    }).catch(function(err) {
-      console.error(err);
-    });
-  },
-
-  castVoteNo: function() {
-    var candidateId = $('#candidatesSelect').val();
-    App.contracts.Review.deployed().then(function(instance) {
-      return instance.vote_no(candidateId, { from: App.account });
+      return instance.vote(candidateId, { from: App.account });
     }).then(function(result) {
       // Wait for votes to update
       $("#content").hide();
