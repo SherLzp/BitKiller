@@ -122,6 +122,11 @@ App = {
       console.error(err);
     });
   },
+  
+  sleep: function(_time){
+    var st = (new Date()).getTime();
+    while((new Date()).getTime() - st <= _time);
+  },
 
   signup: function(){
     App.contracts.PushStudy.deployed().then(function(instance){
@@ -132,6 +137,7 @@ App = {
       //alert("报名成功！")
     })
   }
+
 };
 
 $(function() {
