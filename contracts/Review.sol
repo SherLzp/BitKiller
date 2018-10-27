@@ -18,7 +18,7 @@ contract Review {
     uint public candidatesCount;
 
     //store the problems
-    string[] public problems;
+    // string[] public problems;
 
     // voted event
     event votedEvent (
@@ -27,7 +27,7 @@ contract Review {
 
     function Review () public {
         addCandidate("It's My Answer");
-        problems[0] = "It's My Answer";
+        // problems[0] = "It's My Answer";
     }
 
     function addCandidate (string _name) private {
