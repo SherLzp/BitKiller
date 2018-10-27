@@ -23,11 +23,11 @@ App = {
   },
 
   initContract: function() {
-    $.getJSON("Election.json", function(election) {
+    $.getJSON("PushStudy.json", function(pushStudy) {
       // Instantiate a new truffle contract from the artifact
-      App.contracts.Election = TruffleContract(election);
+      App.contracts.PushStudy = TruffleContract(pushStudy);
       // Connect provider to interact with contract
-      App.contracts.Election.setProvider(App.web3Provider);
+      App.contracts.PushStudy.setProvider(App.web3Provider);
 
       App.listenForEvents();
 
@@ -36,41 +36,41 @@ App = {
   },
 
   // Listen for events emitted from the contract
-  listenForEvents: function() {
-    App.contracts.Election.deployed().then(function(instance) {
-      // Restart Chrome if you are unable to receive this event
-      // This is a known issue with Metamask
-      // https://github.com/MetaMask/metamask-extension/issues/2393
-      instance.votedEvent({}, {
-        fromBlock: 0,
-        toBlock: 'latest'
-      }).watch(function(error, event) {
-        console.log("event triggered", event)
-        // Reload when a new vote is recorded
-        App.render();
-      });
-    });
-  },
+  // listenForEvents: function() {
+  //   App.contracts.PushStudy.deployed().then(function(instance) {
+  //     // Restart Chrome if you are unable to receive this event
+  //     // This is a known issue with Metamask
+  //     // https://github.com/MetaMask/metamask-extension/issues/2393
+  //     instance.votedEvent({}, {
+  //       fromBlock: 0,
+  //       toBlock: 'latest'
+  //     }).watch(function(error, event) {
+  //       console.log("event triggered", event)
+  //       // Reload when a new vote is recorded
+  //       App.render();
+  //     });
+  //   });
+  // },
 
   render: function() {
-    var electionInstance;
-    var loader = $("#loader");
-    var content = $("#content");
+    var pushStudyInstance;
+    //var loader = $("#loader");
+    //var content = $("#content");
 
-    loader.show();
-    content.hide();
+    //loader.show();
+    //content.hide();
 
     // Load account data
     web3.eth.getCoinbase(function(err, account) {
       if (err === null) {
         App.account = account;
-        $("#accountAddress").html("Your Account: " + account);
+        //$("#accountAddress").html("Your Account: " + account);
       }
     });
 
     // Load contract data
-    App.contracts.Election.deployed().then(function(instance) {
-      electionInstance = instance;
+    App.contracts.PushStudy.deployed().then(function(instance) {
+      pushStudyInstance = instance;
       return electionInstance.candidatesCount();
     }).then(function(candidatesCount) {
       var candidatesResults = $("#candidatesResults");
@@ -118,6 +118,15 @@ App = {
     }).catch(function(err) {
       console.error(err);
     });
+  },
+
+  signup: function(){
+    App.contracts.PushStudy.deployed().then(function(instance){
+      pushStudyInstance = instance;
+      pushStudyInstance.signup();
+      $("#sign").setAttribute("disabled",true);
+      alert("报名成功！");
+    })
   }
 };
 

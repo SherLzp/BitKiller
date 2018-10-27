@@ -1,6 +1,6 @@
 pragma solidity ^0.4.2;
 
-contract Election{
+contract PushStudy{
 
     //Model a Candidate
     struct Candidate{
@@ -21,18 +21,29 @@ contract Election{
     //Store Candidates
     //Fetch Candidates
     mapping(uint => Candidate) public candidates;
+
+    mapping(address => uint) public balances;
     
+    uint fee = 1 ether;
+
     //Store Candidate Counts
     uint public candidatesCount;
+
+    function signup() public payable{
+        require(msg.sender.balance >= fee,"余额不足");
+        if(msg.sender.balance > fee){
+            msg.sender.transfer(fee);
+        }
+        
+    }
 
     // voted event
     event votedEvent (
         uint indexed _candidateId
     );
 
-    function Election() public {
-        addCandidate("Candidate 1");
-        addCandidate("Candidate 2");
+    function PushStudy() public payable{
+        owner = msg.sender;
     }
 
     function addCandidate(string _name) private {
